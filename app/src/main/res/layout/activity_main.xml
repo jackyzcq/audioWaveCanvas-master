@@ -43,12 +43,12 @@
         android:layout_height="wrap_content"
         android:text="녹음 방송"/>
 
-    <Button
-        android:layout_marginTop="10dp"
-        android:id="@+id/socreaudio"
-        android:layout_below="@+id/play"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="比较两音频文件相识度"/>
+    <!--<Button-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:id="@+id/socreaudio"-->
+        <!--android:layout_below="@+id/play"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="比较两音频文件相识度"/>-->
 
 </RelativeLayout>

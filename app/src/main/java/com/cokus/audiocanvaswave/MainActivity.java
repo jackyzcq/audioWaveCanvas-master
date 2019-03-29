@@ -37,12 +37,9 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
-
 /**
  *@author:cokus
  *@email:czcoku@gmail.com
- *
- *
  *
  */
 @RuntimePermissions
@@ -53,21 +50,21 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.status)TextView status;
     @BindView(R.id.waveview)WaveformView waveView;
     @BindView(R.id.play)Button playBtn;
-    @BindView(R.id.socreaudio)Button scoreBtn;
+    //@BindView(R.id.socreaudio)Button scoreBtn;
 
-    private static final int FREQUENCY = 16000;// 设置音频采样率，44100是目前的标准，但是某些设备仍然支持22050，16000，11025
-    private static final int CHANNELCONGIFIGURATION = AudioFormat.CHANNEL_IN_MONO;// 设置单声道声道
-    private static final int AUDIOENCODING = AudioFormat.ENCODING_PCM_16BIT;// 音频数据格式：每个样本16位
-    public final static int AUDIO_SOURCE = MediaRecorder.AudioSource.MIC;// 音频获取源
+    private static final int FREQUENCY = 16000;// 주파수 정의
+    private static final int CHANNELCONGIFIGURATION = AudioFormat.CHANNEL_IN_MONO;// 채널 정의
+    private static final int AUDIOENCODING = AudioFormat.ENCODING_PCM_16BIT;// 파입 정의
+    public final static int AUDIO_SOURCE = MediaRecorder.AudioSource.MIC;// 음원 정의
     private int recBufSize;// 录音最小buffer大小
     private AudioRecord audioRecord;
     private WaveCanvas waveCanvas;
-    private String mFileName = "test";//文件名
+    private String mFileName = "test";//파일 이름
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFormat(PixelFormat.TRANSLUCENT);
+        getWindow().setFormat(PixelFormat.TRANSLUCENT); //윈도우 투명화 지원
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         if(waveSfv != null) {
@@ -80,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
         initPermission();
     }
 
-
-    @OnClick({R.id.switchbtn,R.id.play,R.id.socreaudio})
+    @OnClick({R.id.switchbtn,R.id.play})
     void click(View view){
         switch (view.getId()) {
             case R.id.switchbtn:
@@ -102,23 +98,13 @@ public class MainActivity extends AppCompatActivity {
             }
                 break;
             case R.id.play:
-                   onPlay(0);//播放 从头开始播放
-                break;
-            case R.id.socreaudio:
-                float sim = 0;
-                try {
-                    // new FileInputStream(new File(DATA_DIRECTORY + mFileName + ".wav"))
-                    sim = MusicSimilarityUtil.getScoreByCompareFile(getResources().getAssets().open("coku1.wav"), getResources().getAssets().open("coku2.wav"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Toast.makeText(MainActivity.this,sim+"",Toast.LENGTH_LONG).show();
+                   onPlay(0);//음원 파일 재생
                 break;
         }
     }
 
     private void  initWaveView(){
-     loadFromFile();
+        loadFromFile();
     }
 
     File mFile;
@@ -163,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
         mLoadSoundFileThread.start();
     }
 
-
-
     float mDensity;
     /**waveview载入波形完成*/
     private void finishOpeningSoundFile() {
@@ -197,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     /**
      * 녹음 초기화,  녹음 권한 신청
      */
@@ -205,10 +188,10 @@ public class MainActivity extends AppCompatActivity {
     public void initAudio(){
         recBufSize = AudioRecord.getMinBufferSize(FREQUENCY,
                 CHANNELCONGIFIGURATION, AUDIOENCODING);// 录音组件
-        audioRecord = new AudioRecord(AUDIO_SOURCE,// 指定音频来源，这里为麦克风
-                FREQUENCY, // 16000HZ采样频率
-                CHANNELCONGIFIGURATION,// 录制通道
-                AUDIO_SOURCE,// 录制编码格式
+        audioRecord = new AudioRecord(AUDIO_SOURCE,// 파이크 셋팅
+                FREQUENCY, // 16000HZ 주파수
+                CHANNELCONGIFIGURATION,// 녹음 채널
+                AUDIO_SOURCE,// 인코딩 타입
                 recBufSize);// 录制缓冲区大小 //先修改
         U.createDirectory();
     }
@@ -238,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnPermissionDenied({Manifest.permission.RECORD_AUDIO,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE})
     void showRecordDenied(){
-        Toast.makeText(MainActivity.this,"拒绝录音权限将无法进行挑战",Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this,"녹음 권한을 제거하시면 녹음이 불가능합니다.",Toast.LENGTH_LONG).show();
     }
 
     @OnNeverAskAgain({Manifest.permission.RECORD_AUDIO,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE})
@@ -299,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     /**업데이트upd
-     * ateview 中的播放进度*/
+     * ateview 중의 방송진도*/
     private void updateDisplay() {
             int now = mPlayer.getCurrentPosition();// nullpointer
             int frames = waveView.millisecsToPixels(now);

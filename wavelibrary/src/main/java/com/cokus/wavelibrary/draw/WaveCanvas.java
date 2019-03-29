@@ -105,7 +105,7 @@ public class WaveCanvas {
 
 
     /**
-     * 停止录音
+     * 녹음 정지
      */
     public void Stop() {
         isRecording = false;
@@ -117,7 +117,7 @@ public class WaveCanvas {
      * 데이타 삭제
      */
     public void clear(){
-        inBuf.clear();// 清除
+        inBuf.clear();// 클리어
     }
 
 

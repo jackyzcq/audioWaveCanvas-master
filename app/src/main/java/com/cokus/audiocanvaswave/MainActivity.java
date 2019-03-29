@@ -2,7 +2,6 @@ package com.cokus.audiocanvaswave;
 
 import android.Manifest;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -17,7 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.cokus.audiocanvaswave.util.MusicSimilarityUtil;
+
 import com.cokus.audiocanvaswave.util.U;
 import com.cokus.wavelibrary.draw.WaveCanvas;
 import com.cokus.wavelibrary.utils.SamplePlayer;
@@ -25,7 +24,6 @@ import com.cokus.wavelibrary.utils.SoundFile;
 import com.cokus.wavelibrary.view.WaveSurfaceView;
 import com.cokus.wavelibrary.view.WaveformView;
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
